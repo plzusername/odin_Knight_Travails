@@ -36,12 +36,26 @@ const queue = () =>{
     }
 }
 
+const knightTemplate = (pos) => {
+    return {
+        pos,
+        history:[],
+        getPrevMoves(){
+            return this.history
+        },
+        addMoveToHistory(move){
+            this.history.push(move)
+        }
+    }
+}
+
 
 
 function knightMoves(knightPosition, destination){
     if(knightPosition == destination) return 0
 
-    const movesList = [knightPosition]
+    const movesList = queue()
+    movesList.enqueue(knightPosition)
     const knightAdjacencyBoard = knightChessboardGraph()
     let count = 0
 
