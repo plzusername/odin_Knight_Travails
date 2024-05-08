@@ -20,10 +20,43 @@ const knightChessboardGraph = () => {
     return adjacencyList
 }
 
+const queue = () =>{
+    return {
+        queueList : [],
+        isEmpty(){
+            return this.queueList.length == 0
+        },
+        enqueue(item){
+            this.queueList.push(item)
+        },
+        dequeue(item){
+            this.queueList.shift(item)
+        }
+
+    }
+}
+
 
 
 function knightMoves(knightPosition, destination){
-    
+    if(knightPosition == destination) return 0
+
+    const movesList = [knightPosition]
+    const knightAdjacencyBoard = knightChessboardGraph()
+    let count = 0
+
+    while(movesList.length != 0){
+        for (let i = 0; i < knightAdjacencyBoard[movesList[0]].length; i++) {
+            movesList.push(knightAdjacencyBoard[movesList[0]][i])
+
+            if(knightAdjacencyBoard[movesList[0]][i] == destination){
+                return count || 1
+            }
+        }
+        movesList.shift()
+        count++
+
+    }
 }
 
-console.log(knightMoves(1,18))
+console.log(knightMoves(1,2))
